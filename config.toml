@@ -1,0 +1,30 @@
+[datos]
+init_path = "data/init.json"
+
+[salida]
+directorio = "temp"
+
+[ids]
+sombra_id_inicio = -1
+
+[visualizacion]
+figsize = [8, 8]
+dpi = 200
+seed_layout = 42
+ancho_arista = 1.8
+alpha_arista = 0.9
+tamano_fuente = 10
+color_fuente = "black"
+tamano_fuente_etiqueta_agente = 9
+
+[visualizacion.nodo_normal]
+color = "lightblue"
+tamano = 600
+
+[visualizacion.nodo_prima]
+color = "tomato"
+tamano = 700
+
+[visualizacion.nodo_sombra]
+color = "silver"
+tamano = 300
