@@ -8,7 +8,7 @@ goal, find a path for every agent so that none of them ever collide — while ke
 total travel time as short as possible.
 
 <div align="center">
-  <img src="docs/mapf-demo.gif" alt="MAPF demo" width="25%" />
+  <img src="docs/mapf-demo.gif" alt="MAPF demo" width="35%" />
   <p><sub><em>Figure 1: Demonstration of Multi-Agent Path Finding in a grid environment.</em></sub></p>
 </div>
 
@@ -44,7 +44,7 @@ $$
 \text{pos}_i(t) \in \mathcal{N}\big(\text{pos}_i(t-1)\big) \cup \{\text{pos}_i(t-1)\}
 $$
 
-## Quick start
+## Quick start 🚀
 
 ### Requirements
 * [`uv`](https://docs.astral.sh/uv/)
@@ -55,11 +55,16 @@ $$
 uv sync
 ```
 
-### 2. Run your algorithm
+### 2. Run any algorithm
 ```bash
-uv run python -m runner --format json --scenario-json <path> --topologies-dir <dir> --algorithm cbs
-uv run python -m runner --format movingai --map <path.map> --scen <path.scen> --agents 10 --algorithm cbs
+uv run python -m runner \
+    --format movingai \
+    --map data/benchmarks/berlin/Berlin_1_256.map \
+    --scen "data/benchmarks/berlin/Berlin_1_256.map-scen-random/scen-random/Berlin_1_256-random-10.scen" \
+    --agents 10 \
+    --algorithm cbs
 ```
+You can download more maps and scenarios from https://movingai.com/benchmarks/mapf/index.html
 
 ### 3. Run the tests
 ```bash
