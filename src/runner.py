@@ -6,12 +6,15 @@ import json
 from pathlib import Path
 
 from algorithms import CBSSolver
+from algorithms.mstar import MStarSolver
 from data_loaders import JSONScenarioLoader, MovingAILoader, ScenarioLoader
 from domain import ExecutionResult, MAPFSolver
 
 SOLVERS: dict[str, type[MAPFSolver]] = {
     "cbs": CBSSolver,
+    "mstar": MStarSolver,
 }
+
 
 
 def build_arg_parser() -> argparse.ArgumentParser:
