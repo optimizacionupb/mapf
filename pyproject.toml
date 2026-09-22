@@ -6,6 +6,8 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "matplotlib>=3.11.1",
+    "mkdocs>=1.6.1",
+    "mkdocs-material>=9.7.7",
     "networkx>=3.6.1",
 ]
 
@@ -17,7 +19,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/mapf"]
+packages = ["src/domain", "src/data_loaders", "src/algorithms"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
