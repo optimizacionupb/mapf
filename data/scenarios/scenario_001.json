@@ -1,0 +1,22 @@
+{
+  "id": "scenario_001",
+  "description": "Three agents with crossing trajectories",
+  "topology_id": "topology_001",
+  "agents": [
+    {
+      "id": 1,
+      "start": 1,
+      "goal": 15
+    },
+    {
+      "id": 2,
+      "start": 4,
+      "goal": 12
+    },
+    {
+      "id": 3,
+      "start": 13,
+      "goal": 2
+    }
+  ]
+}
