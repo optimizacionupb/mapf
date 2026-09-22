@@ -3,3 +3,5 @@ __pycache__
 /temp
 .pytest_cache
 /data/results
+.cache
+/site
