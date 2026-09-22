@@ -62,9 +62,13 @@ uv run python -m runner \
     --map data/benchmarks/berlin/Berlin_1_256.map \
     --scen "data/benchmarks/berlin/Berlin_1_256.map-scen-random/scen-random/Berlin_1_256-random-10.scen" \
     --agents 10 \
-    --algorithm cbs
+    --algorithm cbs \
+    --visualize
 ```
 You can download more maps and scenarios from https://movingai.com/benchmarks/mapf/index.html
+
+`--visualize` also writes a metrics summary, a static trajectory plot, and a GIF
+animation of the solve next to the result JSON.
 
 ### 3. Run the tests
 ```bash

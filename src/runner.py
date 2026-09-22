@@ -7,8 +7,9 @@ from pathlib import Path
 
 from algorithms import CBSSolver
 from algorithms.mstar import MStarSolver
+from analysis import animate_trajectories, compute_metrics, plot_trajectories
 from data_loaders import JSONScenarioLoader, MovingAILoader, ScenarioLoader
-from domain import ExecutionResult, MAPFSolver
+from domain import ExecutionResult, GraphTopology, MAPFSolver
 
 SOLVERS: dict[str, type[MAPFSolver]] = {
     "cbs": CBSSolver,
@@ -30,6 +31,9 @@ def build_arg_parser() -> argparse.ArgumentParser:
     parser.add_argument("--agents", type=int, default=10, help="Number of agents to load (movingai format).")
     parser.add_argument("--algorithm", choices=sorted(SOLVERS), default="cbs")
     parser.add_argument("--output-dir", type=Path, default=Path("data/results"))
+    parser.add_argument(
+        "--visualize", action="store_true", help="Also write metrics, a trajectory plot, and a GIF animation."
+    )
     return parser
 
 
@@ -51,6 +55,28 @@ def _save_result(result: ExecutionResult, scenario_id: str, algorithm: str, outp
     return output_path
 
 
+def _visualize(result: ExecutionResult, topology: GraphTopology, output_path: Path) -> None:
+    metrics = compute_metrics(result)
+    metrics_path = output_path.with_name(f"{output_path.stem}_metrics.json")
+    metrics_path.write_text(json.dumps(metrics, indent=2))
+    print(
+        f"Metrics: success={metrics['success']} makespan={metrics['makespan']} "
+        f"sum_of_costs={metrics['sum_of_costs']} runtime_ms={metrics['runtime_ms']:.1f}"
+    )
+
+    if not result.paths:
+        print("No successful paths — skipping plot and animation.")
+        return
+
+    plot_path = output_path.with_name(f"{output_path.stem}_trajectories.png")
+    plot_trajectories(result, topology, output_path=plot_path)
+    print(f"Plot saved to {plot_path}")
+
+    gif_path = output_path.with_name(f"{output_path.stem}.gif")
+    animate_trajectories(result, topology, output_path=gif_path)
+    print(f"Animation saved to {gif_path}")
+
+
 def main(argv: list[str] | None = None) -> Path:
     """Loads a scenario, runs the selected solver, and saves the ExecutionResult as JSON."""
     parser = build_arg_parser()
@@ -64,6 +90,10 @@ def main(argv: list[str] | None = None) -> Path:
 
     output_path = _save_result(result, scenario.id, args.algorithm, args.output_dir)
     print(f"Result saved to {output_path}")
+
+    if args.visualize:
+        _visualize(result, scenario.topology, output_path)
+
     return output_path
 
 

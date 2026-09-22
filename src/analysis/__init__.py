@@ -2,6 +2,6 @@
 
 from analysis.analyze import analyze
 from analysis.metrics import compute_metrics
-from analysis.plots import plot_trajectories
+from analysis.plots import animate_trajectories, plot_trajectories
 
-__all__ = ["analyze", "compute_metrics", "plot_trajectories"]
+__all__ = ["analyze", "animate_trajectories", "compute_metrics", "plot_trajectories"]

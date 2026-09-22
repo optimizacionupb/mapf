@@ -10,8 +10,10 @@ Four layers, each only depending on the one below it:
 graph LR
   R["runner.py<br/>(CLI)"] --> A["algorithms/<br/>(solvers)"]
   R --> L["data_loaders/<br/>(adapters)"]
+  R --> N["analysis/<br/>(metrics + plots)"]
   A --> D["domain/<br/>(models + contracts)"]
   L --> D
+  N --> D
 ```
 
 ## Domain (`src/domain/`)
@@ -62,8 +64,19 @@ Solvers implement `MAPFSolver`. The current one, **Conflict-Based Search (CBS)**
 
 See [Adding an algorithm](extending.md) to plug in a different solver.
 
+## Analysis (`src/analysis/`)
+
+Pure post-processing of an `ExecutionResult` — no solver or loader knowledge. `metrics.py`
+aggregates makespan/cost/runtime and counts each agent's moves vs. waits; `plots.py`
+renders a static trajectory plot and a GIF animation over a `GraphTopology`; `analyze.py`
+reloads a saved result JSON for post-hoc use. See
+[Analysis & visualization](analysis.md).
+
 ## Runner (`src/runner.py`)
 
 The only piece that knows about CLI arguments. It picks a `ScenarioLoader` from
 `--format`, loads the `Scenario`, runs the selected `MAPFSolver`, and writes the
 `ExecutionResult` as JSON to `data/results/<scenario_id>/<algorithm>/<result_id>.json`.
+With `--visualize`, it also calls into `analysis/` — using the `Scenario`'s topology
+already in memory — to write metrics, a trajectory plot, and a GIF animation next to
+the result JSON.
