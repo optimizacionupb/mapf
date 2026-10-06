@@ -116,9 +116,9 @@ class MStarSolver(MAPFSolver):
         expansions = 0
         while open_heap:
             if expansions >= self.max_expansions:
-                break
+                return self._no_solution(scenario, seed, start_time, status="timeout")
             if (time.perf_counter() - start_time) > self.timeout_s:
-                break
+                return self._no_solution(scenario, seed, start_time, status="timeout")
 
             f, _, state = heapq.heappop(open_heap)
             if f > g_score[state] + h(state) + 1e-9:
@@ -232,12 +232,15 @@ class MStarSolver(MAPFSolver):
             sum_of_costs=sum_of_costs,
         )
 
-    def _no_solution(self, scenario: Scenario, seed: int | None, start_time: float) -> ExecutionResult:
+    def _no_solution(
+        self, scenario: Scenario, seed: int | None, start_time: float, status: str = "no_solution"
+    ) -> ExecutionResult:
+        """`no_solution` when the joint space was exhausted; `timeout` when a search limit hit first."""
         return ExecutionResult(
             id=f"{scenario.id}_mstar_{uuid.uuid4().hex[:8]}",
             scenario_id=scenario.id,
             algorithm=self.name,
-            status="no_solution",
+            status=status,
             paths=[],
             seed=seed,
             runtime_ms=(time.perf_counter() - start_time) * 1000,

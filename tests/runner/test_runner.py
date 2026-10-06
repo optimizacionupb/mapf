@@ -34,6 +34,31 @@ def test_json_format_runs_cbs_and_saves_result(scenario_json_path, topologies_di
     assert len(payload["paths"]) == 1
 
 
+def test_json_format_runs_mstar_and_saves_result(scenario_json_path, topologies_dir, tmp_path):
+    output_dir = tmp_path / "results"
+
+    output_path = main(
+        [
+            "--format",
+            "json",
+            "--scenario-json",
+            str(scenario_json_path),
+            "--topologies-dir",
+            str(topologies_dir),
+            "--algorithm",
+            "mstar",
+            "--output-dir",
+            str(output_dir),
+        ]
+    )
+
+    assert output_path.parent.name == "mstar"
+    payload = json.loads(output_path.read_text())
+    assert payload["algorithm"] == "mstar"
+    assert payload["status"] == "success"
+    assert len(payload["paths"]) == 1
+
+
 def test_movingai_format_runs_cbs_and_saves_result(tiny_map_path, tiny_scen_path, tmp_path):
     output_dir = tmp_path / "results"
 

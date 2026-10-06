@@ -67,6 +67,8 @@ uv run python -m runner \
 ```
 You can download more maps and scenarios from https://movingai.com/benchmarks/mapf/index.html
 
+`--algorithm` accepts `cbs` (Conflict-Based Search) or `mstar` (M*).
+
 `--visualize` also writes a metrics summary, a static trajectory plot, and a GIF
 animation of the solve next to the result JSON.
 

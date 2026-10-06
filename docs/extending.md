@@ -27,7 +27,7 @@ class MySolver(MAPFSolver):
             id=f"{scenario.id}_{self.name}",
             scenario_id=scenario.id,
             algorithm=self.name,
-            status="success",  # or "no_solution"
+            status="success",  # or "no_solution" / "timeout"
             paths=[...],
             seed=seed,
             runtime_ms=...,
