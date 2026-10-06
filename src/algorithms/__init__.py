@@ -1,5 +1,6 @@
 """MAPF algorithm implementations of the MAPFSolver strategy contract."""
 
-from algorithms.cbs import CBSSolver
+from .astar_od import AStarODSolver
+from .cbs import CBSSolver
 
-__all__ = ["CBSSolver"]
+__all__ = ["AStarODSolver", "CBSSolver"]

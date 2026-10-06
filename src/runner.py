@@ -5,11 +5,12 @@ import dataclasses
 import json
 from pathlib import Path
 
-from algorithms import CBSSolver
+from algorithms import AStarODSolver, CBSSolver
 from data_loaders import JSONScenarioLoader, MovingAILoader, ScenarioLoader
 from domain import ExecutionResult, MAPFSolver
 
 SOLVERS: dict[str, type[MAPFSolver]] = {
+    "astar_od": AStarODSolver,
     "cbs": CBSSolver,
 }
 
