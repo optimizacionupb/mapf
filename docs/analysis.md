@@ -26,7 +26,7 @@ data/results/<scenario_id>/<algorithm>/
   <result_id>.gif                # animate_trajectories() output
 ```
 
-If the solver doesn't find a solution (`status == "no_solution"`), the plot and
+If the solver doesn't find a solution (`status` is `"no_solution"` or `"timeout"`), the plot and
 animation are skipped — there are no paths to draw — but metrics are still written.
 
 ## Functions (`src/analysis/`)

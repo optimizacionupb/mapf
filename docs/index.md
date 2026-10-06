@@ -14,7 +14,7 @@ The project is split into five decoupled layers:
   no algorithm logic attached.
 - **Data loaders** — adapters that turn an external file format (a custom JSON schema, or
   the Moving AI Lab `.map`/`.scen` benchmark format) into a domain `Scenario`.
-- **Algorithms** — solvers (currently Conflict-Based Search) that implement a common
+- **Algorithms** — solvers (currently Conflict-Based Search and M\*) that implement a common
   `MAPFSolver` contract, so new algorithms can be added without touching anything else.
 - **Runner** — a CLI that wires a loader and a solver together, and saves the result.
 - **Analysis** — computes metrics and renders a trajectory plot and GIF animation from a

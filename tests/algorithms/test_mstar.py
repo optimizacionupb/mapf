@@ -1,4 +1,7 @@
+import pytest
+
 from domain.models import Agent, GraphTopology, Node, Scenario
+from algorithms.cbs import CBSSolver
 from algorithms.mstar import MStarSolver, _individual_policy
 
 
@@ -140,3 +143,37 @@ def test_result_carries_scenario_and_algorithm_metadata():
     assert result.algorithm == "mstar"
     assert result.seed == 7
     assert result.runtime_ms >= 0.0
+
+
+def test_reports_timeout_when_expansion_limit_is_hit():
+    scenario = Scenario(
+        id="s6",
+        topology=_hub_topology(),
+        agents=[Agent(id=1, start=1, goal=3), Agent(id=2, start=3, goal=1)],
+        description="",
+    )
+
+    result = MStarSolver(max_expansions=1).solve(scenario)
+
+    assert result.status == "timeout"
+    assert result.paths == []
+
+
+@pytest.mark.parametrize(
+    "topology, agents",
+    [
+        (_hub_topology(), [Agent(id=1, start=1, goal=3), Agent(id=2, start=3, goal=1)]),
+        (_grid_topology(3, 3), [Agent(id=1, start=0, goal=8), Agent(id=2, start=8, goal=0)]),
+        (_grid_topology(3, 3), [Agent(id=1, start=3, goal=5), Agent(id=2, start=1, goal=7), Agent(id=3, start=0, goal=2)]),
+        (_grid_topology(4, 4), [Agent(id=1, start=0, goal=15), Agent(id=2, start=15, goal=0), Agent(id=3, start=3, goal=12)]),
+    ],
+)
+def test_matches_cbs_optimal_sum_of_costs(topology, agents):
+    scenario = Scenario(id="cmp", topology=topology, agents=agents, description="")
+
+    mstar = MStarSolver().solve(scenario)
+    cbs = CBSSolver().solve(scenario)
+
+    assert mstar.status == cbs.status == "success"
+    assert not _has_conflict(_as_dict(mstar))
+    assert mstar.sum_of_costs == cbs.sum_of_costs

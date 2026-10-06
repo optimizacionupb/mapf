@@ -52,8 +52,9 @@ Adding a new format means adding a new `ScenarioLoader` subclass — nothing els
 
 ## Algorithms (`src/algorithms/`)
 
-Solvers implement `MAPFSolver`. The current one, **Conflict-Based Search (CBS)**
-(`cbs.py`), works in two levels:
+Solvers implement `MAPFSolver`. There are two, both optimal for sum of costs.
+
+**Conflict-Based Search (CBS)** (`cbs.py`) works in two levels:
 
 - **Low-level**: Space-Time A* finds the cheapest path for one agent, given a set of
   forbidden `(node, time)` and `(edge, time)` constraints.
@@ -61,6 +62,20 @@ Solvers implement `MAPFSolver`. The current one, **Conflict-Based Search (CBS)**
   set of constraints. Pop the cheapest node, check its paths for a conflict; if none,
   it's the answer. Otherwise, branch into two children — one constraint per conflicting
   agent — and replan just that agent.
+
+**M\*** (`mstar.py`) runs A* over the joint state of all agents, but only branches where
+it has to:
+
+- Each agent starts out following its own shortest-path policy (a backward Dijkstra from
+  its goal), so a joint state has a single successor while nobody collides.
+- When agents collide, they are added to the **collision set** of every state that led
+  there (back-propagation), and those states are re-expanded with every move for just
+  those agents. The search space only grows around actual conflicts.
+- `epsilon > 0` inflates the heuristic for a faster, bounded-suboptimal search
+  (`epsilon=0`, the default, is optimal).
+
+M\* returns `status="no_solution"` only after exhausting the joint space (proven
+infeasible), and `status="timeout"` if `max_expansions` or `timeout_s` is hit first.
 
 See [Adding an algorithm](extending.md) to plug in a different solver.
 
