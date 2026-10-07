@@ -5,7 +5,7 @@ import dataclasses
 import json
 from pathlib import Path
 
-from algorithms import CBSSolver, MStarSolver
+from algorithms import CBSSolver, HierarchicalSolver, MStarSolver
 from analysis import animate_trajectories, compute_metrics, plot_trajectories
 from data_loaders import JSONScenarioLoader, MovingAILoader, ScenarioLoader
 from domain import ExecutionResult, GraphTopology, MAPFSolver
@@ -13,6 +13,7 @@ from domain import ExecutionResult, GraphTopology, MAPFSolver
 SOLVERS: dict[str, type[MAPFSolver]] = {
     "cbs": CBSSolver,
     "mstar": MStarSolver,
+    "hierarchical": HierarchicalSolver,
 }
 
 

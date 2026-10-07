@@ -67,7 +67,8 @@ uv run python -m runner \
 ```
 You can download more maps and scenarios from https://movingai.com/benchmarks/mapf/index.html
 
-`--algorithm` accepts `cbs` (Conflict-Based Search) or `mstar` (M*).
+`--algorithm` accepts `cbs` (Conflict-Based Search), `mstar` (M*), or `hierarchical`
+(the sampling-based L1 → L2 → L3 solver described in [docs/L123.md](docs/L123.md)).
 
 `--visualize` also writes a metrics summary, a static trajectory plot, and a GIF
 animation of the solve next to the result JSON.

@@ -52,7 +52,8 @@ Adding a new format means adding a new `ScenarioLoader` subclass — nothing els
 
 ## Algorithms (`src/algorithms/`)
 
-Solvers implement `MAPFSolver`. There are two, both optimal for sum of costs.
+Solvers implement `MAPFSolver`. CBS and M\* are both optimal for sum of costs; the
+hierarchical solver is a heuristic with no optimality guarantee.
 
 **Conflict-Based Search (CBS)** (`cbs.py`) works in two levels:
 
@@ -76,6 +77,25 @@ it has to:
 
 M\* returns `status="no_solution"` only after exhausting the joint space (proven
 infeasible), and `status="timeout"` if `max_expansions` or `timeout_s` is hit first.
+
+**Hierarchical (L1 → L2 → L3)** (`hierarchical.py`) is a sampling-based, non-complete
+solver built from the design in [`docs/L123.md`](L123.md):
+
+- **L1 (flow design)**: if two opposite arcs carry a persistent contraflow signal
+  `μ_ab = f_ab · f_ba` above `mu_threshold`, one direction is removed, provided every
+  agent still has a path.
+- **L2 (route generation)**: up to `routes_per_agent` spatial routes per agent on the
+  regulated graph, each penalizing the arcs of the previous ones and adding a congestion
+  term `gamma · λ̄`.
+- **L3 (scheduling)**: `samples` draws of one route per agent (softmax over route cost,
+  `beta`). Each draw is split into interaction components and each component is timed
+  with prioritized planning over fixed routes (advance or wait only).
+
+Only the `ExecutionResult` contract is returned; the regulated graph, route pools and
+congestion stay internal. Because it samples, `status="no_solution"` means *no solution
+found within the budget*, not proven infeasibility, and `status="timeout"` means
+`timeout_s` ran out before any solution was found. Simple spatial routes cannot retreat
+into a dead end and come back, so head-on swaps that need a passing bay can be missed.
 
 See [Adding an algorithm](extending.md) to plug in a different solver.
 
