@@ -131,7 +131,8 @@ class PulpSolver(MAPFSolver):
             ), f"Makespan_robot_{i}"
 
         # 5. Resolver
-        solver = pulp.PULP_CBC_CMD(msg=False, timeLimit=self.timeout_s)
+
+        solver = pulp.COIN_CMD(path="/opt/homebrew/bin/cbc", msg=False, timeLimit=self.timeout_s)
         modelo.solve(solver)
 
         runtime_ms = (time.perf_counter() - start_time) * 1000.0
