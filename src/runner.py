@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 
 from algorithms import CBSSolver, MStarSolver
+from algorithms.pulp_solver import PulpSolver
 from analysis import animate_trajectories, compute_metrics, plot_trajectories
 from data_loaders import JSONScenarioLoader, MovingAILoader, ScenarioLoader
 from domain import ExecutionResult, GraphTopology, MAPFSolver
@@ -13,6 +14,7 @@ from domain import ExecutionResult, GraphTopology, MAPFSolver
 SOLVERS: dict[str, type[MAPFSolver]] = {
     "cbs": CBSSolver,
     "mstar": MStarSolver,
+    "pulp_solver": PulpSolver,
 }
 
 
