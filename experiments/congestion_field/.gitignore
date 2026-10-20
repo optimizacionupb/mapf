@@ -1,0 +1,11 @@
+# pristine baselines are re-created by scripts/setup.sh at pinned commits
+third_party/
+# submodule copies inside the variants are copied from third_party/ by scripts/setup.sh
+variants/lacam3_field/third_party/
+variants/pibt2_field/third_party/
+variants/*/build/
+variants/eecbs_field/CMakeFiles/
+variants/eecbs_field/CMakeCache.txt
+variants/eecbs_field/Makefile
+variants/eecbs_field/cmake_install.cmake
+runs/tmp/
