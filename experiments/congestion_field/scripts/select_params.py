@@ -22,7 +22,9 @@ def load(*names):
 
 def ranking(rows, method, grid):
     inst = lambda r: (r["map"], r["scen"], r["N"])  # noqa: E731
-    base = {inst(r): r for r in rows if r["method"] == "base"}
+    # only instances that are part of the design (e.g. ignore the unused warehouse/450 base rows)
+    design = {inst(r) for r in rows if r["method"] != "base"}
+    base = {inst(r): r for r in rows if r["method"] == "base" and inst(r) in design}
     base_solved = sum(1 for r in base.values() if r["valid"] == "1")
     res = []
     for p in grid:

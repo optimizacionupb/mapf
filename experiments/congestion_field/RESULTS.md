@@ -56,3 +56,19 @@ Stage 1 selection is in `tuned_params.json` and committed. The selection score i
 - Even on the tuning data, the static heat map is at least as good as the forecast in both arms.
 - In EECBS, putting the field key before f (right after the conflict count) always hurt: static was as low as -13.7%, and forecast ranged from -0.2% to -1.9%.
 - LaCAM3 tuning (top 3 PIBT configs per method, re-evaluated on LaCAM3) is running.
+
+### LaCAM3 tuning (stage 2: top 3 PIBT configs per method re-evaluated on LaCAM3 tuning instances)
+
+| method | config | tuning mean improvement | solved (new / base) |
+|---|---|---|---|
+| forecast | gamma 0.8, H 5, cap 4 (selected) | -0.39% | 75 / 75 |
+| forecast | gamma 0.5, H 5, cap 4 | -0.45% | 75 / 75 |
+| forecast | gamma 0.5, H 5, cap 2 | -0.53% | 75 / 75 |
+| static | gamma 0.5, H 5, cap 2 (selected) | -0.42% | 70 / 75 |
+| static | gamma 0.5, H 5, cap 4 | -0.48% | 70 / 75 |
+| static | gamma 0.5, H 10, cap 2 | -0.49% | 70 / 75 |
+
+- **Forecast** made LaCAM3 slightly worse on every candidate, even on the tuning data.
+- **Static** made LaCAM3 fail to find any solution within 60 s on 5 of the 75 tuning instances: warehouse scenarios 1 and 3 at 300, 400 and 420 agents, minus one. The baseline solves each of these in about 1 s.
+- **Deviation 5:** no static config met the eligibility rule (solve at least as many as base). The plan does not cover this case, so the best-ranked config under the same ordering was taken.
+- **Deviation 6:** `select_params.py` first counted the 3 unused warehouse/450 base rows (deviation 4) in the base solved count. This was fixed before selection was finalised. It changed eligibility flags only, not the PIBT or EECBS choices.

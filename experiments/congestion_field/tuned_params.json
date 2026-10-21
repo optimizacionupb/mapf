@@ -887,6 +887,94 @@
     "eligible": false,
     "runs": 75
    }
+  ],
+  "lacam3_forecast": [
+   {
+    "params": {
+     "gamma": 0.8,
+     "horizon": 5,
+     "cap": 4
+    },
+    "cfg": "c4_g0.8_h5",
+    "solved": 75,
+    "base_solved": 75,
+    "n_both": 75,
+    "mean_r": -0.003865879682923922,
+    "eligible": true,
+    "runs": 75
+   },
+   {
+    "params": {
+     "gamma": 0.5,
+     "horizon": 5,
+     "cap": 4
+    },
+    "cfg": "c4_g0.5_h5",
+    "solved": 75,
+    "base_solved": 75,
+    "n_both": 75,
+    "mean_r": -0.004505691050229838,
+    "eligible": true,
+    "runs": 75
+   },
+   {
+    "params": {
+     "gamma": 0.5,
+     "horizon": 5,
+     "cap": 2
+    },
+    "cfg": "c2_g0.5_h5",
+    "solved": 75,
+    "base_solved": 75,
+    "n_both": 75,
+    "mean_r": -0.005337002116453642,
+    "eligible": true,
+    "runs": 75
+   }
+  ],
+  "lacam3_static": [
+   {
+    "params": {
+     "gamma": 0.5,
+     "horizon": 5,
+     "cap": 2
+    },
+    "cfg": "c2_g0.5_h5",
+    "solved": 70,
+    "base_solved": 75,
+    "n_both": 70,
+    "mean_r": -0.0041545452691514545,
+    "eligible": false,
+    "runs": 75
+   },
+   {
+    "params": {
+     "gamma": 0.5,
+     "horizon": 5,
+     "cap": 4
+    },
+    "cfg": "c4_g0.5_h5",
+    "solved": 70,
+    "base_solved": 75,
+    "n_both": 70,
+    "mean_r": -0.0048248736619287734,
+    "eligible": false,
+    "runs": 75
+   },
+   {
+    "params": {
+     "gamma": 0.5,
+     "horizon": 10,
+     "cap": 2
+    },
+    "cfg": "c2_g0.5_h10",
+    "solved": 70,
+    "base_solved": 75,
+    "n_both": 70,
+    "mean_r": -0.004909394590961921,
+    "eligible": false,
+    "runs": 75
+   }
   ]
  },
  "pibt": {
@@ -951,5 +1039,17 @@
     "cap": 2
    }
   ]
+ },
+ "lacam3": {
+  "forecast": {
+   "gamma": 0.8,
+   "horizon": 5,
+   "cap": 4
+  },
+  "static": {
+   "gamma": 0.5,
+   "horizon": 5,
+   "cap": 2
+  }
  }
 }
