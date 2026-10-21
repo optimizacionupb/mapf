@@ -40,7 +40,8 @@ BIN = {
 }
 
 AGENTS = {
-    "lacam3": {"warehouse": [100, 200, 300, 400, 450], "maze": [100, 200, 300, 400, 500],
+    # lacam3 warehouse top count: 450 was pre-registered, but 11 of the 25 "even" scens have < 450 agents
+    "lacam3": {"warehouse": [100, 200, 300, 400, 420], "maze": [100, 200, 300, 400, 500],
                "berlin": [200, 400, 600, 800, 1000]},
     "pibt": {"warehouse": [25, 50, 75, 100, 125], "maze": [100, 200, 300, 400, 500],
              "berlin": [200, 400, 600, 800, 1000]},
@@ -214,7 +215,12 @@ def run_all(jobs, csv_path):
                 j = q.get_nowait()
             except queue.Empty:
                 return
-            row = run_job(j, core)
+            try:
+                row = run_job(j, core)
+            except Exception as e:  # never lose a worker; record the job as a failure
+                row = dict(arm=j["arm"], phase=j["phase"], method=j["method"], cfg=j["cfg"], map=j["map"],
+                           scen=j["scen"], N=j["N"], seed=j["scen"], solved=0, valid=0,
+                           msg=f"harness-error:{type(e).__name__}:{e}"[:200])
             with lock:
                 wr.writerow(row)
                 fh.flush()
