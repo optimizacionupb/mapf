@@ -54,5 +54,5 @@ Stage 1 selection is in `tuned_params.json` and committed. The selection score i
 | EECBS | static | key after f, gamma 1.0, H 128 | +0.24% | 75 / 75 |
 
 - Even on the tuning data, the static heat map is at least as good as the forecast in both arms.
-- In EECBS, putting the field key before f (right after the conflict count) hurt badly: -13.7% for static, with a similar order for forecast.
+- In EECBS, putting the field key before f (right after the conflict count) always hurt: static was as low as -13.7%, and forecast ranged from -0.2% to -1.9%.
 - LaCAM3 tuning (top 3 PIBT configs per method, re-evaluated on LaCAM3) is running.
