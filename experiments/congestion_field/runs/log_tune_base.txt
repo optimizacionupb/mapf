@@ -1,0 +1,35 @@
+/home/user/mapf/experiments/congestion_field/runs/lacam3_tune_base.csv: 75 jobs, 75 to run
+  10/75 01:05:49
+  20/75 01:09:01
+Exception in thread Thread-2 (worker):
+Exception in thread Thread-3 (worker):
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib/python3.13/threading.py", line 1044, in _bootstrap_inner
+    self.run()
+    ~~~~~~~~^^
+  File "/usr/lib/python3.13/threading.py", line 1044, in _bootstrap_inner
+    self.run()
+    ~~~~~~~~^^
+  File "/usr/lib/python3.13/threading.py", line 995, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/threading.py", line 995, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/mapf/experiments/congestion_field/scripts/run.py", line 217, in worker
+    row = run_job(j, core)
+  File "/home/user/mapf/experiments/congestion_field/scripts/run.py", line 217, in worker
+    row = run_job(j, core)
+  File "/home/user/mapf/experiments/congestion_field/scripts/run.py", line 114, in run_job
+    agents = read_scen(scen_path(m, scen), n)
+  File "/home/user/mapf/experiments/congestion_field/scripts/run.py", line 114, in run_job
+    agents = read_scen(scen_path(m, scen), n)
+  File "/home/user/mapf/experiments/congestion_field/scripts/common.py", line 57, in read_scen
+    raise ValueError(f"{path} has only {len(out)} agents, need {n}")
+  File "/home/user/mapf/experiments/congestion_field/scripts/common.py", line 57, in read_scen
+    raise ValueError(f"{path} has only {len(out)} agents, need {n}")
+ValueError: /home/user/mapf/data/benchmarks/warehouse/warehouse-10-20-10-2-1.map-scen-even/scen-even/warehouse-10-20-10-2-1-even-3.scen has only 430 agents, need 450
+ValueError: /home/user/mapf/data/benchmarks/warehouse/warehouse-10-20-10-2-1.map-scen-even/scen-even/warehouse-10-20-10-2-1-even-4.scen has only 440 agents, need 450
+  30/75 01:18:13
+/home/user/mapf/experiments/congestion_field/runs/lacam3_tune_base.csv: 75 jobs, 43 to run
