@@ -27,3 +27,20 @@ for (arm, m, n), files in sorted(groups.items()):
     with open(os.path.join(HEAT, f"{arm}_{m}_{n}.txt"), "w") as f:
         f.write(" ".join(f"{x:.5g}" for x in acc))
     print(arm, m, n, "from", len(files), "solutions, max", round(max(acc), 3))
+
+# Fallback (fixed rule, independent of results): if the base solver solved no tuning instance at
+# (arm, map, N), use the heat of the largest smaller N of the same arm and map that has one.
+from run import AGENTS  # noqa: E402
+import shutil  # noqa: E402
+for arm, maps in AGENTS.items():
+    for m, ns in maps.items():
+        for i, n in enumerate(ns):
+            target = os.path.join(HEAT, f"{arm}_{m}_{n}.txt")
+            if os.path.exists(target):
+                continue
+            for n2 in reversed(ns[:i]):
+                src = os.path.join(HEAT, f"{arm}_{m}_{n2}.txt")
+                if os.path.exists(src):
+                    shutil.copy(src, target)
+                    print(arm, m, n, "has no solved tuning instance; heat copied from N =", n2)
+                    break

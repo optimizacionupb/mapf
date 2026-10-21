@@ -33,3 +33,26 @@ ValueError: /home/user/mapf/data/benchmarks/warehouse/warehouse-10-20-10-2-1.map
 ValueError: /home/user/mapf/data/benchmarks/warehouse/warehouse-10-20-10-2-1.map-scen-even/scen-even/warehouse-10-20-10-2-1-even-4.scen has only 440 agents, need 450
   30/75 01:18:13
 /home/user/mapf/experiments/congestion_field/runs/lacam3_tune_base.csv: 75 jobs, 43 to run
+  10/43 01:29:02
+  20/43 01:32:53
+  30/43 01:37:19
+  40/43 01:43:53
+  43/43 01:45:52
+/home/user/mapf/experiments/congestion_field/runs/pibt_tune_base.csv: 75 jobs, 75 to run
+  10/75 01:45:54
+  20/75 01:46:01
+  30/75 01:46:11
+  40/75 01:46:45
+  50/75 01:47:43
+  60/75 01:49:45
+  70/75 01:55:08
+  75/75 01:57:39
+/home/user/mapf/experiments/congestion_field/runs/eecbs_tune_base.csv: 75 jobs, 75 to run
+  10/75 01:57:43
+  20/75 01:57:50
+  30/75 01:58:00
+  40/75 01:58:15
+  50/75 01:58:47
+  60/75 01:59:48
+  70/75 02:02:07
+  75/75 02:03:39
