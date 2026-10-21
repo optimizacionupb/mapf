@@ -1,0 +1,3 @@
+/home/user/mapf/experiments/congestion_field/runs/pibt_check_ablB.csv: 6 jobs, 6 to run
+  6/6 09:28:22
+/home/user/mapf/experiments/congestion_field/runs/lacam3_check_ablB.csv: 6 jobs, 6 to run

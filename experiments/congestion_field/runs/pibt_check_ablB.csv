@@ -1,0 +1,7 @@
+arm,phase,method,cfg,map,scen,N,seed,solved,valid,soc,lb,makespan,wall_ms,solver_ms,field_ms,init_cost,msg
+pibt,check,ablA,c2_g0.5_h5,maze,1,300,1,1,1,69873,58282,494,199,136,57.3984,,
+pibt,check,ablA,c2_g0.5_h5,warehouse,1,75,1,0,0,,7180,,943,735,477.147,,
+pibt,check,ablB,c2_g0.5_h5,warehouse,1,75,1,0,0,,7180,,810,552,366.797,,
+pibt,check,ablB,c2_g0.5_h5,maze,1,300,1,1,1,69873,58282,494,357,237,129.821,,
+pibt,check,ablA,c2_g0.5_h5,berlin,1,600,1,1,1,117224,106052,442,1127,873,165.139,,
+pibt,check,ablB,c2_g0.5_h5,berlin,1,600,1,1,1,117224,106052,442,1256,959,142.447,,
