@@ -1,1 +1,4 @@
 arm,phase,method,cfg,map,scen,N,seed,solved,valid,soc,lb,makespan,wall_ms,solver_ms,field_ms,init_cost,msg
+lacam3,check,ablB,c4_g0.8_h5,warehouse,1,300,1,1,1,31158,29563,203,60304,60182,5505.528162,32092,
+lacam3,check,ablA,c4_g0.8_h5,warehouse,1,300,1,1,1,31037,29563,203,60215,60135,5608.320188,32092,
+lacam3,check,ablA,c4_g0.8_h5,maze,1,300,1,1,1,63026,58282,502,60465,60263,6263.107187,60447,
