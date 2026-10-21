@@ -53,6 +53,19 @@ FIELDS = ["arm", "phase", "method", "cfg", "map", "scen", "N", "seed", "solved",
           "makespan", "wall_ms", "solver_ms", "field_ms", "init_cost", "msg"]
 
 
+_LB_CACHE = {}
+_LB_LOCK = threading.Lock()
+
+
+def cached_lb(m, scen, n, agents):
+    """SoC lower bound is a pure function of the instance; cache it (the grids repeat instances)."""
+    k = (m, scen, n)
+    with _LB_LOCK:
+        if k not in _LB_CACHE:
+            _LB_CACHE[k] = soc_lower_bound(map_path(m), agents)
+        return _LB_CACHE[k]
+
+
 def heat_file(arm, m, n):
     return os.path.join(HEAT, f"{arm}_{m}_{n}.txt")
 
@@ -146,7 +159,7 @@ def run_job(job, core):
         stdout, rc, msg = "", -9, "hard-kill"
     wall = (time.time() - t0) * 1000
     row = dict(arm=arm, phase=job["phase"], method=method, cfg=job["cfg"], map=m, scen=scen, N=n, seed=seed,
-               solved=0, valid=0, soc="", lb=soc_lower_bound(map_path(m), agents), makespan="",
+               solved=0, valid=0, soc="", lb=cached_lb(m, scen, n, agents), makespan="",
                wall_ms=round(wall), solver_ms="", field_ms=0, init_cost="", msg=msg)
     configs = None
     try:
